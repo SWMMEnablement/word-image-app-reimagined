@@ -5,8 +5,12 @@ import { ProfileCard } from "@/components/ProfileCard";
 import { FeatureCard } from "@/components/FeatureCard";
 import { RelatedContent } from "@/components/RelatedContent";
 import { Heart, MessageCircle, Share2, Bookmark, Calendar, ExternalLink } from "lucide-react";
-import heroBg from "@/assets/hero-bg.jpg";
-import icmFeatures from "@/assets/icm-features.jpg";
+import heroBg from "@/assets/hero-cover.jpg";
+import icmShortcut from "@/assets/icm-shortcut-flags.jpg";
+import icmUltimate from "@/assets/icm-ultimate.jpg";
+import icmSewer from "@/assets/icm-sewer.jpg";
+import icmViewer from "@/assets/icm-viewer.jpg";
+import icmUltimate2 from "@/assets/icm-ultimate-2.jpg";
 
 const Index = () => {
   return (
@@ -26,13 +30,13 @@ const Index = () => {
                 2 months ago • Edited
               </Badge>
               <a 
-                href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7338392659280994304/"
+                href="https://www.linkedin.com/pulse/eight-icms-one-icm-ultimate-sewer-flood-viewer-swmm-robert-dickinson-13bae/"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 text-sm backdrop-blur-sm bg-card/20 px-3 py-1 rounded-full border border-primary-foreground/20"
               >
                 <ExternalLink className="w-4 h-4" />
-                View Original LinkedIn Post
+                View Original LinkedIn Article
               </a>
             </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
@@ -88,14 +92,96 @@ const Index = () => {
               </Card>
             </div>
 
-            {/* Feature Image */}
-            <div className="relative rounded-lg overflow-hidden shadow-large">
-              <img 
-                src={icmFeatures} 
-                alt="Eight ICMs in One - ICM Ultimate, Sewer, Flood, and Viewer for InfoWorks and SWMM Networks"
-                className="w-full h-auto"
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-background/60 to-transparent" />
+            {/* Command Line Instructions */}
+            <Card className="bg-gradient-card shadow-medium border-0">
+              <CardContent className="p-6">
+                <Badge variant="feature" className="mb-4">Shortcut Configuration</Badge>
+                <div className="grid md:grid-cols-2 gap-6">
+                  <div>
+                    <p className="text-foreground leading-relaxed mb-4">
+                      You can change what you see by setting a flag in the shortcut properties:
+                    </p>
+                    <div className="space-y-2 text-sm font-mono bg-muted/30 p-4 rounded-lg">
+                      <div>"/ADSK:Sewer" - ICM Sewer</div>
+                      <div>"/ADSK:Flood" - ICM Flood</div>
+                      <div>"/ADSK:Viewer" - ICM Viewer</div>
+                      <div>"/ADSK:Ultimate" - ICM Ultimate</div>
+                    </div>
+                  </div>
+                  <div>
+                    <img 
+                      src={icmShortcut} 
+                      alt="ICM Shortcut Configuration Flags"
+                      className="w-full h-auto rounded-lg shadow-soft"
+                    />
+                  </div>
+                </div>
+              </CardContent>
+            </Card>
+
+            {/* ICM Variants Gallery */}
+            <div className="space-y-8">
+              <h2 className="text-3xl font-bold text-center text-foreground">ICM Variants Showcase</h2>
+              
+              <div className="grid md:grid-cols-2 lg:grid-cols-3 gap-6">
+                <Card className="bg-gradient-card shadow-medium border-0 overflow-hidden">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src={icmUltimate} 
+                      alt="ICM Ultimate Interface"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-foreground mb-2">ICM Ultimate</h3>
+                    <p className="text-sm text-muted-foreground">Complete suite with all features</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-card shadow-medium border-0 overflow-hidden">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src={icmSewer} 
+                      alt="ICM Sewer Interface"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-foreground mb-2">ICM Sewer</h3>
+                    <p className="text-sm text-muted-foreground">Specialized for sewer network design</p>
+                  </CardContent>
+                </Card>
+
+                <Card className="bg-gradient-card shadow-medium border-0 overflow-hidden">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src={icmViewer} 
+                      alt="ICM Viewer Interface"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-foreground mb-2">ICM Viewer</h3>
+                    <p className="text-sm text-muted-foreground">View and analyze existing models</p>
+                  </CardContent>
+                </Card>
+              </div>
+
+              <div className="flex justify-center">
+                <Card className="bg-gradient-card shadow-medium border-0 overflow-hidden max-w-md">
+                  <div className="aspect-[4/3] relative">
+                    <img 
+                      src={icmUltimate2} 
+                      alt="ICM Ultimate Interface Alternative View"
+                      className="w-full h-full object-cover"
+                    />
+                  </div>
+                  <CardContent className="p-4">
+                    <h3 className="font-semibold text-foreground mb-2">ICM Ultimate</h3>
+                    <p className="text-sm text-muted-foreground">Alternative interface view</p>
+                  </CardContent>
+                </Card>
+              </div>
             </div>
 
             {/* Feature Details */}
