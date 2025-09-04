@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ProfileCard } from "@/components/ProfileCard";
 import { FeatureCard } from "@/components/FeatureCard";
 import { RelatedContent } from "@/components/RelatedContent";
-import { Heart, MessageCircle, Share2, Bookmark, Calendar } from "lucide-react";
+import { Heart, MessageCircle, Share2, Bookmark, Calendar, ExternalLink } from "lucide-react";
 import heroBg from "@/assets/hero-bg.jpg";
 import icmFeatures from "@/assets/icm-features.jpg";
 
@@ -20,10 +20,21 @@ const Index = () => {
         <div className="absolute inset-0 bg-gradient-hero/80" />
         <div className="relative z-10 container mx-auto px-4 py-24">
           <div className="max-w-4xl mx-auto text-center text-primary-foreground space-y-6">
-            <Badge variant="glass" className="mb-4">
-              <Calendar className="w-4 h-4 mr-2" />
-              2 months ago • Edited
-            </Badge>
+            <div className="flex flex-col items-center gap-3">
+              <Badge variant="glass" className="mb-2">
+                <Calendar className="w-4 h-4 mr-2" />
+                2 months ago • Edited
+              </Badge>
+              <a 
+                href="https://www.linkedin.com/feed/update/urn:li:ugcPost:7338392659280994304/"
+                target="_blank"
+                rel="noopener noreferrer"
+                className="inline-flex items-center gap-2 text-primary-foreground/80 hover:text-primary-foreground transition-colors duration-200 text-sm backdrop-blur-sm bg-card/20 px-3 py-1 rounded-full border border-primary-foreground/20"
+              >
+                <ExternalLink className="w-4 h-4" />
+                View Original LinkedIn Post
+              </a>
+            </div>
             <h1 className="text-4xl md:text-6xl font-bold leading-tight">
               Eight ICMs in One
             </h1>
