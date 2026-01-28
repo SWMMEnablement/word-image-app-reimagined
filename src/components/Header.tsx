@@ -57,8 +57,8 @@ export const Header = () => {
             <Droplets className="w-6 h-6 text-primary-foreground" />
           </div>
           <div className="hidden sm:block">
-            <h2 className="font-bold text-foreground">ICM Guide</h2>
-            <p className="text-xs text-muted-foreground">Water Modeling Tools</p>
+            <h2 className="font-bold text-foreground">BobSWMM</h2>
+            <p className="text-xs text-muted-foreground">ICM Guide</p>
           </div>
         </div>
 
