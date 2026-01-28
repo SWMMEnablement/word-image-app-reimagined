@@ -330,14 +330,49 @@ export const PricingCalculator = () => {
           </div>
         </div>
 
+        {/* Action Buttons */}
+        <div className="grid sm:grid-cols-2 gap-3">
+          <a
+            href="https://www.autodesk.com/resellers"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 p-3 rounded-lg bg-primary text-primary-foreground hover:bg-primary-hover transition-colors font-medium"
+          >
+            <DollarSign className="w-4 h-4" />
+            Get Official Quote from Reseller
+          </a>
+          <a
+            href="https://www.autodesk.com/products/infoworks-icm/free-trial"
+            target="_blank"
+            rel="noopener noreferrer"
+            className="flex items-center justify-center gap-2 p-3 rounded-lg border border-primary text-primary hover:bg-primary/10 transition-colors font-medium"
+          >
+            <Clock className="w-4 h-4" />
+            Start 30-Day Free Trial
+          </a>
+        </div>
+
         {/* Disclaimer */}
         <div className="flex items-start gap-2 p-3 bg-muted/50 rounded-lg text-sm text-muted-foreground">
           <AlertCircle className="w-4 h-4 flex-shrink-0 mt-0.5" />
-          <p>
-            Pricing estimates are illustrative and based on typical Autodesk software pricing models. 
-            Actual costs vary by region, reseller, promotions, and contract terms. 
-            Contact an authorized Autodesk reseller for accurate quotes.
-          </p>
+          <div>
+            <p className="mb-2">
+              <strong>Why estimates?</strong> Autodesk pricing varies by region, reseller discounts, volume licensing, 
+              and promotional offers. These estimates are based on typical US pricing and help with initial budgeting.
+            </p>
+            <p>
+              <strong>For accurate quotes:</strong> Contact an{" "}
+              <a 
+                href="https://www.autodesk.com/resellers" 
+                target="_blank" 
+                rel="noopener noreferrer"
+                className="text-primary hover:underline"
+              >
+                authorized Autodesk reseller
+              </a>{" "}
+              who can provide exact pricing for your organization and region.
+            </p>
+          </div>
         </div>
       </CardContent>
     </Card>

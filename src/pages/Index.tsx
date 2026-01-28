@@ -6,6 +6,8 @@ import { ICMComparisonTool } from "@/components/ICMComparisonTool";
 import { KnowledgeBase } from "@/components/KnowledgeBase";
 import { PricingCalculator } from "@/components/PricingCalculator";
 import { ProjectPlanner } from "@/components/ProjectPlanner";
+import { QuoteRequestForm } from "@/components/QuoteRequestForm";
+import { VendorResources } from "@/components/VendorResources";
 import { Header } from "@/components/Header";
 import { Heart, MessageCircle, Share2, Bookmark, ExternalLink, Layers } from "lucide-react";
 import heroBg from "@/assets/hero-water-modeling.jpg";
@@ -86,11 +88,16 @@ const Index = () => {
             <section id="knowledge-base" className="scroll-mt-20">
               <KnowledgeBase />
             </section>
+            <section id="quote-request" className="scroll-mt-20">
+              <QuoteRequestForm />
+            </section>
           </div>
 
           {/* Sidebar */}
           <div className="space-y-8">
             <ProfileCard />
+            
+            <VendorResources />
             
             {/* Quick Summary */}
             <Card className="bg-gradient-card shadow-medium border-0">
