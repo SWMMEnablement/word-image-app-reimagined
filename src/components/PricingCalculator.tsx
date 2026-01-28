@@ -20,6 +20,7 @@ interface PricingTier {
   maintenanceRate: number;
   features: string[];
   recommended?: boolean;
+  isFree?: boolean;
 }
 
 const pricingTiers: PricingTier[] = [
@@ -27,18 +28,19 @@ const pricingTiers: PricingTier[] = [
     id: "viewer",
     name: "ICM Viewer",
     description: "View-only access for stakeholders",
-    monthlyBase: 75,
-    annualDiscount: 0.15,
-    threeYearDiscount: 0.25,
-    perpetualMultiplier: 24,
-    maintenanceRate: 0.18,
-    features: ["View models & results", "Animation playback", "Report viewing", "No editing capabilities"]
+    monthlyBase: 0,
+    annualDiscount: 0,
+    threeYearDiscount: 0,
+    perpetualMultiplier: 0,
+    maintenanceRate: 0,
+    features: ["View models & results", "Animation playback", "Report viewing", "No editing capabilities"],
+    isFree: true
   },
   {
     id: "sewer",
     name: "ICM Sewer",
     description: "Sewer & stormwater networks",
-    monthlyBase: 350,
+    monthlyBase: 539,
     annualDiscount: 0.15,
     threeYearDiscount: 0.25,
     perpetualMultiplier: 24,
@@ -49,7 +51,7 @@ const pricingTiers: PricingTier[] = [
     id: "flood",
     name: "ICM Flood",
     description: "2D surface flooding analysis",
-    monthlyBase: 400,
+    monthlyBase: 735,
     annualDiscount: 0.15,
     threeYearDiscount: 0.25,
     perpetualMultiplier: 24,
@@ -60,9 +62,9 @@ const pricingTiers: PricingTier[] = [
     id: "ultimate",
     name: "ICM Ultimate",
     description: "Complete 4-in-1 solution",
-    monthlyBase: 550,
-    annualDiscount: 0.20,
-    threeYearDiscount: 0.30,
+    monthlyBase: 1765,
+    annualDiscount: 0.15,
+    threeYearDiscount: 0.25,
     perpetualMultiplier: 22,
     maintenanceRate: 0.16,
     features: ["All Sewer features", "All Flood features", "Maximum flexibility", "Best value for mixed projects"],
@@ -243,13 +245,26 @@ export const PricingCalculator = () => {
                 </div>
                 
                 <div className="space-y-1">
-                  <div className="text-2xl font-bold text-foreground">
-                    ${tier.costPerSeat.toLocaleString()}
-                    <span className="text-sm font-normal text-muted-foreground">/seat</span>
-                  </div>
-                  <div className="text-sm text-muted-foreground">
-                    {tier.period}
-                  </div>
+                  {tier.isFree ? (
+                    <>
+                      <div className="text-2xl font-bold text-primary">
+                        FREE
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        Download from Autodesk
+                      </div>
+                    </>
+                  ) : (
+                    <>
+                      <div className="text-2xl font-bold text-foreground">
+                        ${tier.costPerSeat.toLocaleString()}
+                        <span className="text-sm font-normal text-muted-foreground">/seat</span>
+                      </div>
+                      <div className="text-sm text-muted-foreground">
+                        {tier.period}
+                      </div>
+                    </>
+                  )}
                 </div>
 
                 {tier.savings > 0 && (
