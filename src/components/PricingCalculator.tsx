@@ -320,7 +320,7 @@ export const PricingCalculator = () => {
             </div>
           )}
 
-          {/* Combo Savings Insight */}
+          {/* Ultimate Value Insight */}
           <div className="p-4 bg-accent/30 rounded-lg border border-accent/50">
             <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
               <TrendingUp className="w-4 h-4 text-primary" />
@@ -335,13 +335,51 @@ export const PricingCalculator = () => {
                 <span className="text-muted-foreground">ICM Ultimate:</span>
                 <span className="font-medium">${comboAnalysis.ultimateCost.toLocaleString()}</span>
               </div>
-              <div className="flex justify-between pt-2 border-t text-primary">
-                <span className="font-medium">You save with Ultimate:</span>
-                <span className="font-bold">
-                  ${comboAnalysis.savings.toLocaleString()} ({comboAnalysis.savingsPercent}%)
-                </span>
+              <div className="pt-2 border-t text-xs text-muted-foreground">
+                <strong className="text-foreground">Why choose Ultimate?</strong> Unified workflow, 
+                seamless 1D/2D integration, single license management, and full flexibility for 
+                mixed sewer/flood projects without switching products.
               </div>
             </div>
+          </div>
+        </div>
+
+        {/* Flex Token Pricing */}
+        <div className="p-4 bg-muted/30 rounded-lg border border-border/40">
+          <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <Clock className="w-4 h-4 text-primary" />
+            Autodesk Flex Token Pricing
+          </h4>
+          <p className="text-xs text-muted-foreground mb-3">
+            Pay-as-you-go option using Autodesk Flex tokens ($3/token)
+          </p>
+          <div className="overflow-x-auto">
+            <table className="w-full text-sm">
+              <thead>
+                <tr className="border-b border-border/40">
+                  <th className="text-left py-2 font-medium text-foreground">Product Edition</th>
+                  <th className="text-right py-2 font-medium text-foreground">Tokens/Day</th>
+                  <th className="text-right py-2 font-medium text-foreground">Cost/Day</th>
+                </tr>
+              </thead>
+              <tbody>
+                <tr className="border-b border-border/20">
+                  <td className="py-2 text-muted-foreground">InfoWorks ICM Sewer</td>
+                  <td className="text-right py-2 font-medium">24</td>
+                  <td className="text-right py-2 font-medium">$72.00</td>
+                </tr>
+                <tr className="border-b border-border/20">
+                  <td className="py-2 text-muted-foreground">InfoWorks ICM Flood</td>
+                  <td className="text-right py-2 font-medium">31</td>
+                  <td className="text-right py-2 font-medium">$93.00</td>
+                </tr>
+                <tr>
+                  <td className="py-2 text-muted-foreground">InfoWorks ICM Ultimate</td>
+                  <td className="text-right py-2 font-medium">75</td>
+                  <td className="text-right py-2 font-medium">$225.00</td>
+                </tr>
+              </tbody>
+            </table>
           </div>
         </div>
 
