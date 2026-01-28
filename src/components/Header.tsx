@@ -1,16 +1,45 @@
 import { Moon, Sun, Droplets } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
+import { useEffect, useState } from "react";
+import { cn } from "@/lib/utils";
 
 const navItems = [
-  { label: "Planner", href: "#project-planner" },
-  { label: "Compare", href: "#comparison-tool" },
-  { label: "Pricing", href: "#pricing" },
-  { label: "Knowledge", href: "#knowledge-base" },
+  { label: "Planner", href: "#project-planner", id: "project-planner" },
+  { label: "Compare", href: "#comparison-tool", id: "comparison-tool" },
+  { label: "Pricing", href: "#pricing", id: "pricing" },
+  { label: "Knowledge", href: "#knowledge-base", id: "knowledge-base" },
 ];
 
 export const Header = () => {
   const { theme, setTheme } = useTheme();
+  const [activeSection, setActiveSection] = useState<string>("");
+
+  useEffect(() => {
+    const observers: IntersectionObserver[] = [];
+    
+    navItems.forEach(({ id }) => {
+      const element = document.getElementById(id);
+      if (element) {
+        const observer = new IntersectionObserver(
+          (entries) => {
+            entries.forEach((entry) => {
+              if (entry.isIntersecting) {
+                setActiveSection(id);
+              }
+            });
+          },
+          { rootMargin: "-20% 0px -70% 0px", threshold: 0 }
+        );
+        observer.observe(element);
+        observers.push(observer);
+      }
+    });
+
+    return () => {
+      observers.forEach((observer) => observer.disconnect());
+    };
+  }, []);
 
   const scrollToSection = (href: string) => {
     const element = document.querySelector(href);
@@ -39,7 +68,12 @@ export const Header = () => {
               variant="ghost"
               size="sm"
               onClick={() => scrollToSection(item.href)}
-              className="text-muted-foreground hover:text-foreground transition-colors"
+              className={cn(
+                "transition-colors",
+                activeSection === item.id
+                  ? "text-primary bg-primary/10 hover:bg-primary/15"
+                  : "text-muted-foreground hover:text-foreground"
+              )}
             >
               {item.label}
             </Button>
