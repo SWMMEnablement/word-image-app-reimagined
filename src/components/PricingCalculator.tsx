@@ -4,7 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { Label } from "@/components/ui/label";
 import { Slider } from "@/components/ui/slider";
 import { Select, SelectContent, SelectItem, SelectTrigger, SelectValue } from "@/components/ui/select";
-import { Calculator, Users, Clock, DollarSign, TrendingUp, AlertCircle, Check } from "lucide-react";
+import { Calculator, Users, Clock, DollarSign, TrendingUp, AlertCircle, Check, Scale } from "lucide-react";
 
 type LicenseType = "subscription" | "perpetual";
 type LicenseTerm = "monthly" | "annual" | "3year";
@@ -77,6 +77,21 @@ export const PricingCalculator = () => {
   const [licenseType, setLicenseType] = useState<LicenseType>("subscription");
   const [licenseTerm, setLicenseTerm] = useState<LicenseTerm>("annual");
   const [selectedTier, setSelectedTier] = useState<string>("ultimate");
+  const [usageDays, setUsageDays] = useState(100);
+
+  // Flex token pricing data
+  const flexPricing = {
+    sewer: { tokensPerDay: 24, costPerDay: 72 },
+    flood: { tokensPerDay: 31, costPerDay: 93 },
+    ultimate: { tokensPerDay: 75, costPerDay: 225 }
+  };
+
+  // Annual subscription costs (at annual term)
+  const annualSubscription = {
+    sewer: 5498,
+    flood: 7497,
+    ultimate: 18003
+  };
 
   const calculations = useMemo(() => {
     return pricingTiers.map(tier => {
@@ -383,7 +398,74 @@ export const PricingCalculator = () => {
           </div>
         </div>
 
-        {/* Action Buttons */}
+        {/* Breakeven Calculator */}
+        <div className="p-4 bg-primary/5 rounded-lg border border-primary/20">
+          <h4 className="font-semibold text-foreground mb-3 flex items-center gap-2">
+            <Scale className="w-4 h-4 text-primary" />
+            Subscription vs. Flex Breakeven Calculator
+          </h4>
+          <p className="text-xs text-muted-foreground mb-4">
+            Find out which pricing model is more cost-effective based on your expected usage
+          </p>
+          
+          {/* Usage Days Slider */}
+          <div className="space-y-3 mb-4">
+            <div className="flex items-center justify-between">
+              <Label className="flex items-center gap-2">
+                <Clock className="w-4 h-4" />
+                Expected Usage Days per Year
+              </Label>
+              <Badge variant="secondary">{usageDays} days</Badge>
+            </div>
+            <Slider
+              value={[usageDays]}
+              onValueChange={(value) => setUsageDays(value[0])}
+              min={1}
+              max={260}
+              step={1}
+              className="w-full"
+            />
+            <div className="flex justify-between text-xs text-muted-foreground">
+              <span>1 day</span>
+              <span>~5 days/week = 260 days</span>
+            </div>
+          </div>
+
+          {/* Breakeven Results */}
+          <div className="grid sm:grid-cols-3 gap-3">
+            {[
+              { key: 'sewer', name: 'ICM Sewer', breakeven: Math.ceil(annualSubscription.sewer / flexPricing.sewer.costPerDay) },
+              { key: 'flood', name: 'ICM Flood', breakeven: Math.ceil(annualSubscription.flood / flexPricing.flood.costPerDay) },
+              { key: 'ultimate', name: 'ICM Ultimate', breakeven: Math.ceil(annualSubscription.ultimate / flexPricing.ultimate.costPerDay) }
+            ].map((product) => {
+              const flex = flexPricing[product.key as keyof typeof flexPricing];
+              const sub = annualSubscription[product.key as keyof typeof annualSubscription];
+              const flexCost = flex.costPerDay * usageDays;
+              const isFlexBetter = flexCost < sub;
+              const savings = Math.abs(sub - flexCost);
+              
+              return (
+                <div key={product.key} className="p-3 rounded-lg bg-background/80 border border-border/40">
+                  <div className="text-sm font-medium text-foreground mb-2">{product.name}</div>
+                  <div className="text-xs text-muted-foreground mb-2">
+                    Breakeven: <span className="font-medium text-foreground">{product.breakeven} days</span>
+                  </div>
+                  <div className={`text-xs font-medium ${isFlexBetter ? 'text-green-600 dark:text-green-400' : 'text-primary'}`}>
+                    {isFlexBetter ? '✓ Flex is cheaper' : '✓ Subscription is cheaper'}
+                  </div>
+                  <div className="text-xs text-muted-foreground mt-1">
+                    Save ${savings.toLocaleString()}/year
+                  </div>
+                </div>
+              );
+            })}
+          </div>
+          
+          <div className="mt-3 text-xs text-muted-foreground">
+            <strong>Tip:</strong> If you use ICM more than the breakeven days, subscription saves money. For occasional use, Flex tokens are more economical.
+          </div>
+        </div>
+
         <div className="grid sm:grid-cols-2 gap-3">
           <a
             href="https://www.autodesk.com/resellers"
