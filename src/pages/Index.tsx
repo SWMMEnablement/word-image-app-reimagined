@@ -4,6 +4,7 @@ import { Badge } from "@/components/ui/badge";
 import { ProfileCard } from "@/components/ProfileCard";
 import { ICMComparisonTool } from "@/components/ICMComparisonTool";
 import { KnowledgeBase } from "@/components/KnowledgeBase";
+import { PricingCalculator } from "@/components/PricingCalculator";
 import { Heart, MessageCircle, Share2, Bookmark, Calendar, ExternalLink, Layers } from "lucide-react";
 import heroBg from "@/assets/hero-cover.jpg";
 
@@ -67,6 +68,7 @@ const Index = () => {
           {/* Main Tool */}
           <div className="lg:col-span-3 space-y-8">
             <ICMComparisonTool />
+            <PricingCalculator />
             <KnowledgeBase />
           </div>
 
