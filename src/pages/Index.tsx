@@ -33,7 +33,7 @@ const Index = () => {
                 Part of the BobSWMM Legacy
               </Badge>
               <p className="text-sm text-muted-foreground backdrop-blur-sm bg-card/40 px-4 py-2 rounded-lg border border-border/40 max-w-xl">
-                A curated guide from <strong className="text-foreground">Robert Dickinson's</strong> 50+ years in water modeling. 
+                A curated guide from <strong className="text-foreground">Robert Dickinson's</strong> 50+ years in SSF (Storm Sewer Flood) modeling. 
                 This is my personal view of Autodesk's InfoWorks ICM tools—built from hands-on experience with SWMM and the engines that power modern hydrology.
               </p>
               <a 
@@ -53,7 +53,7 @@ const Index = () => {
               </span>
             </h1>
             <p className="text-xl md:text-2xl text-muted-foreground leading-relaxed max-w-2xl">
-              Compare ICM Ultimate, Sewer, Flood, and Viewer to find the right solution for your water modeling needs
+              Compare ICM Ultimate, Sewer, Flood, and Viewer to find the right solution for your SSF modeling needs
             </p>
             <div className="flex flex-wrap gap-3 pt-4">
               <Button variant="default" size="lg">
