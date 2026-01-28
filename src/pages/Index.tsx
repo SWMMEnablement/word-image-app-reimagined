@@ -74,10 +74,18 @@ const Index = () => {
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Tool */}
           <div className="lg:col-span-3 space-y-8">
-            <ProjectPlanner />
-            <ICMComparisonTool />
-            <PricingCalculator />
-            <KnowledgeBase />
+            <section id="project-planner" className="scroll-mt-20">
+              <ProjectPlanner />
+            </section>
+            <section id="comparison-tool" className="scroll-mt-20">
+              <ICMComparisonTool />
+            </section>
+            <section id="pricing" className="scroll-mt-20">
+              <PricingCalculator />
+            </section>
+            <section id="knowledge-base" className="scroll-mt-20">
+              <KnowledgeBase />
+            </section>
           </div>
 
           {/* Sidebar */}
