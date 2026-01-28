@@ -3,6 +3,7 @@ import { Card, CardContent } from "@/components/ui/card";
 import { Badge } from "@/components/ui/badge";
 import { ProfileCard } from "@/components/ProfileCard";
 import { ICMComparisonTool } from "@/components/ICMComparisonTool";
+import { KnowledgeBase } from "@/components/KnowledgeBase";
 import { Heart, MessageCircle, Share2, Bookmark, Calendar, ExternalLink, Layers } from "lucide-react";
 import heroBg from "@/assets/hero-cover.jpg";
 
@@ -64,8 +65,9 @@ const Index = () => {
       <div className="container mx-auto px-4 py-12">
         <div className="grid lg:grid-cols-4 gap-8">
           {/* Main Tool */}
-          <div className="lg:col-span-3">
+          <div className="lg:col-span-3 space-y-8">
             <ICMComparisonTool />
+            <KnowledgeBase />
           </div>
 
           {/* Sidebar */}
