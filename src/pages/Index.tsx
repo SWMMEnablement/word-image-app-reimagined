@@ -29,16 +29,20 @@ const Index = () => {
             <div className="flex flex-col items-start gap-3">
               <Badge variant="glass" className="mb-2">
                 <Layers className="w-4 h-4 mr-2" />
-                Interactive Comparison Tool
+                Part of the BobSWMM Legacy
               </Badge>
+              <p className="text-sm text-muted-foreground backdrop-blur-sm bg-card/40 px-4 py-2 rounded-lg border border-border/40 max-w-xl">
+                A curated guide from <strong className="text-foreground">Robert Dickinson's</strong> 50+ years in water modeling. 
+                This is my personal view of Autodesk's InfoWorks ICM tools—built from hands-on experience with SWMM and the engines that power modern hydrology.
+              </p>
               <a 
                 href="https://www.linkedin.com/pulse/eight-icms-one-icm-ultimate-sewer-flood-viewer-swmm-robert-dickinson-13bae/"
                 target="_blank"
                 rel="noopener noreferrer"
-                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm backdrop-blur-sm bg-card/40 px-3 py-1 rounded-full border border-border/40"
+                className="inline-flex items-center gap-2 text-muted-foreground hover:text-foreground transition-colors duration-200 text-sm"
               >
                 <ExternalLink className="w-4 h-4" />
-                Based on LinkedIn Article by Robert Dickinson
+                Based on my LinkedIn Article
               </a>
             </div>
             <h1 className="text-4xl md:text-6xl lg:text-7xl font-bold leading-tight text-foreground">
