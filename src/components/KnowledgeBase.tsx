@@ -23,8 +23,14 @@ import {
   CheckCircle2,
   Circle,
   Video,
-  FileText
+  FileText,
+  Code,
+  Copy,
+  Check,
+  FolderTree,
+  FileCode2
 } from "lucide-react";
+import { ScrollArea } from "@/components/ui/scroll-area";
 
 type ICMVersion = "sewer" | "flood" | "ultimate" | "viewer" | "all";
 
@@ -344,6 +350,205 @@ const difficultyColors: Record<string, string> = {
 export const KnowledgeBase = () => {
   const [searchQuery, setSearchQuery] = useState("");
   const [selectedVersion, setSelectedVersion] = useState<ICMVersion | "all">("all");
+  const [copiedCode, setCopiedCode] = useState<string | null>(null);
+
+  const copyToClipboard = (code: string, id: string) => {
+    navigator.clipboard.writeText(code);
+    setCopiedCode(id);
+    setTimeout(() => setCopiedCode(null), 2000);
+  };
+
+  // Source code documentation for the app
+  const sourceCodeDocs = [
+    {
+      id: "project-structure",
+      title: "Project Structure",
+      description: "Main files and folders in this ICM Software Guide application",
+      icon: FolderTree,
+      content: `src/
+├── components/
+│   ├── ICMComparisonTool.tsx    # Feature comparison matrix
+│   ├── KnowledgeBase.tsx        # FAQs, tutorials, and docs
+│   ├── PricingCalculator.tsx    # Breakeven analysis tool
+│   ├── ProjectPlanner.tsx       # Needs assessment wizard
+│   ├── QuoteRequestForm.tsx     # Vendor quote form
+│   ├── VendorResources.tsx      # Official links
+│   ├── Header.tsx               # Navigation
+│   ├── Footer.tsx               # Site footer
+│   └── ui/                      # shadcn/ui components
+├── pages/
+│   └── Index.tsx                # Main landing page
+├── assets/                      # Images and media
+└── index.css                    # Global styles & design tokens`
+    },
+    {
+      id: "icm-comparison",
+      title: "ICM Comparison Component",
+      description: "How the feature comparison matrix works",
+      icon: FileCode2,
+      content: `// ICMComparisonTool.tsx - Key Types
+interface ICMFeature {
+  name: string;
+  category: string;
+  sewer: boolean | "partial";
+  flood: boolean | "partial";
+  ultimate: boolean | "partial";
+  viewer: boolean | "partial";
+  description: string;
+  shortcut?: string;
+}
+
+// Features are grouped by category
+const features: ICMFeature[] = [
+  {
+    name: "1D Sewer Network Modeling",
+    category: "Core Modeling",
+    sewer: true,
+    flood: false,
+    ultimate: true,
+    viewer: false,
+    description: "Design and simulate pipe networks"
+  },
+  // ... more features
+];
+
+// Render with category filtering and search
+const filteredFeatures = features.filter(f => 
+  matchesSearch && matchesCategory
+);`
+    },
+    {
+      id: "pricing-calculator",
+      title: "Pricing Calculator Logic",
+      description: "Breakeven analysis between subscription and Flex tokens",
+      icon: FileCode2,
+      content: `// PricingCalculator.tsx - Core Logic
+const calculateBreakeven = (product: string, days: number) => {
+  const pricing = {
+    ultimate: { annual: 5340, daily: 63 },
+    sewer: { annual: 4500, daily: 53 },
+    flood: { annual: 4500, daily: 53 },
+    viewer: { annual: 0, daily: 0 }
+  };
+  
+  const p = pricing[product];
+  const flexCost = days * p.daily;
+  const subscriptionCost = p.annual;
+  
+  // Breakeven point calculation
+  const breakevenDays = Math.ceil(p.annual / p.daily);
+  
+  return {
+    flexCost,
+    subscriptionCost,
+    breakevenDays,
+    recommendation: days >= breakevenDays 
+      ? "subscription" 
+      : "flex"
+  };
+};`
+    },
+    {
+      id: "project-planner",
+      title: "Project Planner Assessment",
+      description: "How needs assessment generates recommendations",
+      icon: FileCode2,
+      content: `// ProjectPlanner.tsx - Recommendation Logic
+type ProjectNeed = 
+  | "sewer_modeling" 
+  | "flood_modeling"
+  | "water_quality"
+  | "rtc_simulation"
+  | "view_only";
+
+const getRecommendation = (needs: ProjectNeed[]) => {
+  // If both sewer AND flood needed → Ultimate
+  if (needs.includes("sewer_modeling") && 
+      needs.includes("flood_modeling")) {
+    return "ICM Ultimate";
+  }
+  
+  // Flood-only needs
+  if (needs.includes("flood_modeling")) {
+    return "ICM Flood";
+  }
+  
+  // Sewer, WQ, or RTC → Sewer
+  if (needs.some(n => 
+    ["sewer_modeling", "water_quality", "rtc_simulation"]
+      .includes(n))) {
+    return "ICM Sewer";
+  }
+  
+  // View-only mode
+  return "ICM Viewer";
+};`
+    },
+    {
+      id: "design-system",
+      title: "Design System & Theming",
+      description: "CSS variables and Tailwind configuration",
+      icon: FileCode2,
+      content: `/* index.css - Design Tokens */
+:root {
+  --background: 210 40% 98%;
+  --foreground: 222 47% 11%;
+  --primary: 199 89% 48%;
+  --primary-foreground: 0 0% 100%;
+  --secondary: 210 40% 96%;
+  --muted: 210 40% 96%;
+  --accent: 199 89% 48%;
+  --card: 0 0% 100%;
+  --border: 214 32% 91%;
+  
+  /* Custom gradients */
+  --gradient-primary: linear-gradient(
+    135deg, 
+    hsl(var(--primary)), 
+    hsl(220, 80%, 60%)
+  );
+}
+
+.dark {
+  --background: 222 47% 8%;
+  --foreground: 210 40% 98%;
+  /* ... dark mode overrides */
+}`
+    },
+    {
+      id: "tech-stack",
+      title: "Technology Stack",
+      description: "Core dependencies and frameworks used",
+      icon: FileCode2,
+      content: `// package.json - Key Dependencies
+{
+  "dependencies": {
+    "react": "^18.3.1",
+    "react-dom": "^18.3.1",
+    "react-router-dom": "^6.30.1",
+    
+    // UI Framework
+    "@radix-ui/react-*": "various",
+    "tailwindcss": "^3.x",
+    "class-variance-authority": "^0.7.1",
+    
+    // State & Forms
+    "react-hook-form": "^7.61.1",
+    "@hookform/resolvers": "^3.10.0",
+    "zod": "^3.25.76",
+    
+    // Data & Charts
+    "@tanstack/react-query": "^5.83.0",
+    "recharts": "^2.15.4",
+    
+    // Utilities
+    "lucide-react": "^0.462.0",
+    "date-fns": "^3.6.0",
+    "sonner": "^1.7.4"
+  }
+}`
+    }
+  ];
 
   const filteredFAQs = useMemo(() => {
     return faqs.filter(faq => {
@@ -409,16 +614,20 @@ export const KnowledgeBase = () => {
           </div>
         </div>
 
-        {/* Tabs for FAQs and Tutorials */}
+        {/* Tabs for FAQs, Tutorials, and Docs */}
         <Tabs defaultValue="faqs" className="w-full">
-          <TabsList className="grid w-full grid-cols-2">
+          <TabsList className="grid w-full grid-cols-3">
             <TabsTrigger value="faqs" className="flex items-center gap-2">
               <HelpCircle className="w-4 h-4" />
-              FAQs ({filteredFAQs.length})
+              <span className="hidden sm:inline">FAQs</span> ({filteredFAQs.length})
             </TabsTrigger>
             <TabsTrigger value="tutorials" className="flex items-center gap-2">
               <Workflow className="w-4 h-4" />
-              Tutorials ({filteredTutorials.length})
+              <span className="hidden sm:inline">Tutorials</span> ({filteredTutorials.length})
+            </TabsTrigger>
+            <TabsTrigger value="docs" className="flex items-center gap-2">
+              <Code className="w-4 h-4" />
+              <span className="hidden sm:inline">Source</span> Docs
             </TabsTrigger>
           </TabsList>
 
@@ -654,6 +863,98 @@ export const KnowledgeBase = () => {
                 ))}
               </div>
             )}
+          </TabsContent>
+
+          {/* Docs Tab - Source Code Documentation */}
+          <TabsContent value="docs" className="mt-4">
+            <div className="space-y-4">
+              {/* Intro Card */}
+              <Card className="bg-gradient-to-r from-primary/5 to-primary/10 border-primary/20">
+                <CardContent className="p-4">
+                  <div className="flex items-start gap-3">
+                    <div className="flex items-center justify-center w-10 h-10 rounded-full bg-primary/10">
+                      <Code className="w-5 h-5 text-primary" />
+                    </div>
+                    <div>
+                      <h4 className="font-semibold text-foreground">ICM Software Guide - Source Documentation</h4>
+                      <p className="text-sm text-muted-foreground mt-1">
+                        Explore how this SSF (Storm Sewer Flood) modeling decision tool is built. 
+                        View component architecture, key algorithms, and the design system.
+                      </p>
+                    </div>
+                  </div>
+                </CardContent>
+              </Card>
+
+              {/* Source Code Sections */}
+              <Accordion type="single" collapsible className="w-full space-y-2">
+                {sourceCodeDocs.map((doc) => (
+                  <AccordionItem
+                    key={doc.id}
+                    value={doc.id}
+                    className="border rounded-lg px-4 bg-background/50"
+                  >
+                    <AccordionTrigger className="text-left hover:no-underline">
+                      <div className="flex items-center gap-3">
+                        <div className="flex items-center justify-center w-8 h-8 rounded-md bg-muted">
+                          <doc.icon className="w-4 h-4 text-primary" />
+                        </div>
+                        <div>
+                          <span className="font-medium">{doc.title}</span>
+                          <p className="text-xs text-muted-foreground">{doc.description}</p>
+                        </div>
+                      </div>
+                    </AccordionTrigger>
+                    <AccordionContent>
+                      <div className="relative">
+                        <Button
+                          variant="ghost"
+                          size="sm"
+                          className="absolute top-2 right-2 h-8 gap-1 text-xs"
+                          onClick={() => copyToClipboard(doc.content, doc.id)}
+                        >
+                          {copiedCode === doc.id ? (
+                            <>
+                              <Check className="w-3 h-3" />
+                              Copied!
+                            </>
+                          ) : (
+                            <>
+                              <Copy className="w-3 h-3" />
+                              Copy
+                            </>
+                          )}
+                        </Button>
+                        <ScrollArea className="h-[300px] w-full rounded-md border bg-muted/30 p-4">
+                          <pre className="text-xs font-mono text-foreground whitespace-pre-wrap">
+                            {doc.content}
+                          </pre>
+                        </ScrollArea>
+                      </div>
+                    </AccordionContent>
+                  </AccordionItem>
+                ))}
+              </Accordion>
+
+              {/* GitHub Link Suggestion */}
+              <Card className="bg-background/50 border">
+                <CardContent className="p-4">
+                  <div className="flex items-center justify-between">
+                    <div className="flex items-center gap-3">
+                      <FileCode2 className="w-5 h-5 text-muted-foreground" />
+                      <div>
+                        <p className="text-sm font-medium text-foreground">Full Source Code</p>
+                        <p className="text-xs text-muted-foreground">View the complete repository on GitHub</p>
+                      </div>
+                    </div>
+                    <Button variant="outline" size="sm" className="gap-2">
+                      <ExternalLink className="w-4 h-4" />
+                      View Repo
+                    </Button>
+                  </div>
+                </CardContent>
+              </Card>
+            </div>
           </TabsContent>
         </Tabs>
       </CardContent>

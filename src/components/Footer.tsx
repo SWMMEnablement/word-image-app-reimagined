@@ -37,7 +37,7 @@ export const Footer = () => {
               </div>
             </div>
             <p className="text-sm text-muted-foreground leading-relaxed">
-              A curated collection of water modeling tools and resources from 50+ years of experience in SWMM and hydrology.
+              A curated collection of SSF (Storm Sewer Flood) modeling tools and resources from 50+ years of experience in SWMM and hydrology.
             </p>
           </div>
 
@@ -102,7 +102,7 @@ export const Footer = () => {
               ))}
             </div>
             <p className="text-xs text-muted-foreground">
-              Questions about water modeling? Reach out on LinkedIn or email.
+              Questions about SSF modeling? Reach out on LinkedIn or email.
             </p>
           </div>
         </div>
