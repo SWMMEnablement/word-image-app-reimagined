@@ -9,6 +9,7 @@ import { ProjectPlanner } from "@/components/ProjectPlanner";
 import { QuoteRequestForm } from "@/components/QuoteRequestForm";
 import { VendorResources } from "@/components/VendorResources";
 import { Header } from "@/components/Header";
+import { Footer } from "@/components/Footer";
 import { Heart, MessageCircle, Share2, Bookmark, ExternalLink, Layers } from "lucide-react";
 import heroBg from "@/assets/hero-water-modeling.jpg";
 
@@ -116,6 +117,8 @@ const Index = () => {
           </div>
         </div>
       </div>
+
+      <Footer />
     </div>
   );
 };
