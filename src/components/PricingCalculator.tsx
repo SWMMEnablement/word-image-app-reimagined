@@ -425,9 +425,28 @@ export const PricingCalculator = () => {
               step={1}
               className="w-full"
             />
-            <div className="flex justify-between text-xs text-muted-foreground">
-              <span>1 day</span>
-              <span>~5 days/week = 260 days</span>
+            <div className="flex flex-wrap items-center justify-between gap-2">
+              <div className="flex gap-2">
+                {[
+                  { label: 'Occasional', days: 30, desc: '~2-3 days/month' },
+                  { label: 'Regular', days: 150, desc: '~3 days/week' },
+                  { label: 'Heavy', days: 250, desc: '~5 days/week' }
+                ].map((preset) => (
+                  <button
+                    key={preset.label}
+                    onClick={() => setUsageDays(preset.days)}
+                    className={`px-3 py-1.5 text-xs rounded-md border transition-colors ${
+                      usageDays === preset.days
+                        ? 'bg-primary text-primary-foreground border-primary'
+                        : 'bg-background border-border hover:border-primary/50 text-muted-foreground hover:text-foreground'
+                    }`}
+                    title={preset.desc}
+                  >
+                    {preset.label}
+                  </button>
+                ))}
+              </div>
+              <span className="text-xs text-muted-foreground">Max: 260 days</span>
             </div>
           </div>
 
