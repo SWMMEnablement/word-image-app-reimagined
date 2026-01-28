@@ -1,9 +1,12 @@
 import { Droplets, ExternalLink, Linkedin, Github, Mail } from "lucide-react";
 
 const bobswmmApps = [
-  { name: "ICM Guide", href: "#", description: "This tool" },
-  { name: "SWMM5 Resources", href: "https://www.swmm5.net/", description: "EPA SWMM information" },
-  { name: "One Water Blog", href: "https://blogs.autodesk.com/water/", description: "Autodesk Water insights" },
+  { name: "ICM Guide", href: "#", description: "Compare ICM versions" },
+  { name: "SWMM5 Calculator", href: "#", description: "Hydrology calculations" },
+  { name: "Rainfall Tools", href: "#", description: "IDF curves & analysis" },
+  { name: "Pipe Sizing", href: "#", description: "Quick hydraulic calcs" },
+  { name: "Unit Converter", href: "#", description: "CFS, MGD, L/s & more" },
+  { name: "Math Puzzles", href: "#", description: "Brain teasers" },
 ];
 
 const resources = [
