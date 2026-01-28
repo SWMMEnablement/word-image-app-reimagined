@@ -2,8 +2,22 @@ import { Moon, Sun, Droplets } from "lucide-react";
 import { useTheme } from "next-themes";
 import { Button } from "@/components/ui/button";
 
+const navItems = [
+  { label: "Planner", href: "#project-planner" },
+  { label: "Compare", href: "#comparison-tool" },
+  { label: "Pricing", href: "#pricing" },
+  { label: "Knowledge", href: "#knowledge-base" },
+];
+
 export const Header = () => {
   const { theme, setTheme } = useTheme();
+
+  const scrollToSection = (href: string) => {
+    const element = document.querySelector(href);
+    if (element) {
+      element.scrollIntoView({ behavior: "smooth", block: "start" });
+    }
+  };
 
   return (
     <header className="sticky top-0 z-50 w-full border-b border-border/40 bg-background/80 backdrop-blur-lg">
@@ -12,11 +26,25 @@ export const Header = () => {
           <div className="w-10 h-10 rounded-lg bg-gradient-primary flex items-center justify-center">
             <Droplets className="w-6 h-6 text-primary-foreground" />
           </div>
-          <div>
+          <div className="hidden sm:block">
             <h2 className="font-bold text-foreground">ICM Guide</h2>
             <p className="text-xs text-muted-foreground">Water Modeling Tools</p>
           </div>
         </div>
+
+        <nav className="flex items-center gap-1">
+          {navItems.map((item) => (
+            <Button
+              key={item.href}
+              variant="ghost"
+              size="sm"
+              onClick={() => scrollToSection(item.href)}
+              className="text-muted-foreground hover:text-foreground transition-colors"
+            >
+              {item.label}
+            </Button>
+          ))}
+        </nav>
         
         <Button
           variant="ghost"
