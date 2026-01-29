@@ -8,6 +8,8 @@ import { PricingCalculator } from "@/components/PricingCalculator";
 import { ProjectPlanner } from "@/components/ProjectPlanner";
 import { QuoteRequestForm } from "@/components/QuoteRequestForm";
 import { VendorResources } from "@/components/VendorResources";
+import { AnalysisExport } from "@/components/AnalysisExport";
+import { ImplementationGuides } from "@/components/ImplementationGuides";
 import { Header } from "@/components/Header";
 import { Footer } from "@/components/Footer";
 import { Heart, MessageCircle, Share2, Bookmark, ExternalLink, Layers } from "lucide-react";
@@ -92,6 +94,12 @@ const Index = () => {
             </section>
             <section id="knowledge-base" className="scroll-mt-20">
               <KnowledgeBase />
+            </section>
+            <section id="implementation-guides" className="scroll-mt-20">
+              <ImplementationGuides />
+            </section>
+            <section id="analysis-export" className="scroll-mt-20">
+              <AnalysisExport />
             </section>
             <section id="quote-request" className="scroll-mt-20">
               <QuoteRequestForm />

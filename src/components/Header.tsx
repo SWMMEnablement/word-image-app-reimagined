@@ -9,6 +9,7 @@ const navItems = [
   { label: "Compare", href: "#comparison-tool", id: "comparison-tool" },
   { label: "Pricing", href: "#pricing", id: "pricing" },
   { label: "Knowledge", href: "#knowledge-base", id: "knowledge-base" },
+  { label: "Guides", href: "#implementation-guides", id: "implementation-guides" },
   { label: "Quote", href: "#quote-request", id: "quote-request" },
 ];
 
