@@ -11,6 +11,12 @@ import {
   AccordionItem,
   AccordionTrigger,
 } from "@/components/ui/accordion";
+import {
+  Tooltip,
+  TooltipContent,
+  TooltipProvider,
+  TooltipTrigger,
+} from "@/components/ui/tooltip";
 import { 
   Search, 
   BookOpen, 
@@ -581,38 +587,52 @@ const getRecommendation = (needs: ProjectNeed[]) => {
   }, [searchQuery, selectedVersion]);
 
   return (
-    <Card className="bg-gradient-card shadow-medium border-0">
-      <CardHeader>
-        <CardTitle className="flex items-center gap-2">
-          <BookOpen className="w-5 h-5 text-primary" />
-          Knowledge Base
-        </CardTitle>
-      </CardHeader>
-      <CardContent className="space-y-6">
-        {/* Search and Filter */}
-        <div className="flex flex-col sm:flex-row gap-4">
-          <div className="relative flex-1">
-            <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
-            <Input
-              placeholder="Search FAQs, tutorials, and workflows..."
-              value={searchQuery}
-              onChange={(e) => setSearchQuery(e.target.value)}
-              className="pl-10"
-            />
+    <TooltipProvider>
+      <Card className="bg-gradient-card shadow-medium border-0">
+        <CardHeader>
+          <CardTitle className="flex items-center gap-2">
+            <BookOpen className="w-5 h-5 text-primary" />
+            Knowledge Base
+          </CardTitle>
+        </CardHeader>
+        <CardContent className="space-y-6">
+          {/* Search and Filter */}
+          <div className="flex flex-col sm:flex-row gap-4">
+            <Tooltip>
+              <TooltipTrigger asChild>
+                <div className="relative flex-1">
+                  <Search className="absolute left-3 top-1/2 -translate-y-1/2 w-4 h-4 text-muted-foreground" />
+                  <Input
+                    placeholder="Search FAQs, tutorials, and workflows..."
+                    value={searchQuery}
+                    onChange={(e) => setSearchQuery(e.target.value)}
+                    className="pl-10"
+                  />
+                </div>
+              </TooltipTrigger>
+              <TooltipContent>
+                <p>Search by keyword, topic, or ICM feature</p>
+              </TooltipContent>
+            </Tooltip>
+            <div className="flex flex-wrap gap-2">
+              {(["all", "sewer", "flood", "ultimate", "viewer"] as const).map((version) => (
+                <Tooltip key={version}>
+                  <TooltipTrigger asChild>
+                    <Badge
+                      variant={selectedVersion === version ? "default" : "outline"}
+                      className="cursor-pointer hover:bg-primary/20 transition-colors"
+                      onClick={() => setSelectedVersion(version)}
+                    >
+                      {version === "all" ? "All" : versionLabels[version]}
+                    </Badge>
+                  </TooltipTrigger>
+                  <TooltipContent>
+                    <p>Filter content for {version === "all" ? "all ICM versions" : versionLabels[version]}</p>
+                  </TooltipContent>
+                </Tooltip>
+              ))}
+            </div>
           </div>
-          <div className="flex flex-wrap gap-2">
-            {(["all", "sewer", "flood", "ultimate", "viewer"] as const).map((version) => (
-              <Badge
-                key={version}
-                variant={selectedVersion === version ? "default" : "outline"}
-                className="cursor-pointer hover:bg-primary/20 transition-colors"
-                onClick={() => setSelectedVersion(version)}
-              >
-                {version === "all" ? "All" : versionLabels[version]}
-              </Badge>
-            ))}
-          </div>
-        </div>
 
         {/* Tabs for FAQs, Tutorials, and Docs */}
         <Tabs defaultValue="faqs" className="w-full">
@@ -677,28 +697,41 @@ const getRecommendation = (needs: ProjectNeed[]) => {
                                 {faq.videoDuration}
                               </p>
                             </div>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              className="gap-1"
-                              onClick={() => window.open(faq.videoUrl, '_blank')}
-                            >
-                              <Play className="w-3 h-3" />
-                              Watch
-                            </Button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="gap-1"
+                                  onClick={() => window.open(faq.videoUrl, '_blank')}
+                                >
+                                  <Play className="w-3 h-3" />
+                                  Watch
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Open video tutorial in new tab ({faq.videoDuration})</p>
+                              </TooltipContent>
+                            </Tooltip>
                           </div>
                         )}
                         
                         <div className="flex flex-wrap gap-1 pt-2 border-t">
                           {faq.tags.map((tag) => (
-                            <Badge
-                              key={tag}
-                              variant="outline"
-                              className="text-xs cursor-pointer hover:bg-primary/10"
-                              onClick={() => setSearchQuery(tag)}
-                            >
-                              {tag}
-                            </Badge>
+                            <Tooltip key={tag}>
+                              <TooltipTrigger asChild>
+                                <Badge
+                                  variant="outline"
+                                  className="text-xs cursor-pointer hover:bg-primary/10"
+                                  onClick={() => setSearchQuery(tag)}
+                                >
+                                  {tag}
+                                </Badge>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Click to filter by "{tag}"</p>
+                              </TooltipContent>
+                            </Tooltip>
                           ))}
                         </div>
                       </div>
@@ -757,15 +790,22 @@ const getRecommendation = (needs: ProjectNeed[]) => {
                                 {tutorial.videoDuration}
                               </p>
                             </div>
-                            <Button 
-                              variant="outline" 
-                              size="sm" 
-                              className="gap-1"
-                              onClick={() => window.open(tutorial.videoUrl, '_blank')}
-                            >
-                              <Play className="w-3 h-3" />
-                              Watch
-                            </Button>
+                            <Tooltip>
+                              <TooltipTrigger asChild>
+                                <Button 
+                                  variant="outline" 
+                                  size="sm" 
+                                  className="gap-1"
+                                  onClick={() => window.open(tutorial.videoUrl, '_blank')}
+                                >
+                                  <Play className="w-3 h-3" />
+                                  Watch
+                                </Button>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Open video tutorial in new tab ({tutorial.videoDuration})</p>
+                              </TooltipContent>
+                            </Tooltip>
                           </div>
                         )}
                         
@@ -829,17 +869,23 @@ const getRecommendation = (needs: ProjectNeed[]) => {
                         {tutorial.resources && tutorial.resources.length > 0 && (
                           <div className="flex flex-wrap gap-2">
                             {tutorial.resources.map((resource, resIndex) => (
-                              <Button
-                                key={resIndex}
-                                variant="ghost"
-                                size="sm"
-                                className="text-xs gap-1 h-7"
-                                onClick={() => window.open(resource.url, '_blank')}
-                              >
-                                <FileText className="w-3 h-3" />
-                                {resource.title}
-                                <ExternalLink className="w-3 h-3" />
-                              </Button>
+                              <Tooltip key={resIndex}>
+                                <TooltipTrigger asChild>
+                                  <Button
+                                    variant="ghost"
+                                    size="sm"
+                                    className="text-xs gap-1 h-7"
+                                    onClick={() => window.open(resource.url, '_blank')}
+                                  >
+                                    <FileText className="w-3 h-3" />
+                                    {resource.title}
+                                    <ExternalLink className="w-3 h-3" />
+                                  </Button>
+                                </TooltipTrigger>
+                                <TooltipContent>
+                                  <p>Download or view resource in new tab</p>
+                                </TooltipContent>
+                              </Tooltip>
                             ))}
                           </div>
                         )}
@@ -847,14 +893,20 @@ const getRecommendation = (needs: ProjectNeed[]) => {
                         {/* Tags */}
                         <div className="flex flex-wrap gap-1 pt-2 border-t">
                           {tutorial.tags.map((tag) => (
-                            <Badge
-                              key={tag}
-                              variant="outline"
-                              className="text-xs cursor-pointer hover:bg-primary/10"
-                              onClick={() => setSearchQuery(tag)}
-                            >
-                              {tag}
-                            </Badge>
+                            <Tooltip key={tag}>
+                              <TooltipTrigger asChild>
+                                <Badge
+                                  variant="outline"
+                                  className="text-xs cursor-pointer hover:bg-primary/10"
+                                  onClick={() => setSearchQuery(tag)}
+                                >
+                                  {tag}
+                                </Badge>
+                              </TooltipTrigger>
+                              <TooltipContent>
+                                <p>Click to filter by "{tag}"</p>
+                              </TooltipContent>
+                            </Tooltip>
                           ))}
                         </div>
                       </div>
@@ -907,24 +959,31 @@ const getRecommendation = (needs: ProjectNeed[]) => {
                     </AccordionTrigger>
                     <AccordionContent>
                       <div className="relative">
-                        <Button
-                          variant="ghost"
-                          size="sm"
-                          className="absolute top-2 right-2 h-8 gap-1 text-xs"
-                          onClick={() => copyToClipboard(doc.content, doc.id)}
-                        >
-                          {copiedCode === doc.id ? (
-                            <>
-                              <Check className="w-3 h-3" />
-                              Copied!
-                            </>
-                          ) : (
-                            <>
-                              <Copy className="w-3 h-3" />
-                              Copy
-                            </>
-                          )}
-                        </Button>
+                        <Tooltip>
+                          <TooltipTrigger asChild>
+                            <Button
+                              variant="ghost"
+                              size="sm"
+                              className="absolute top-2 right-2 h-8 gap-1 text-xs"
+                              onClick={() => copyToClipboard(doc.content, doc.id)}
+                            >
+                              {copiedCode === doc.id ? (
+                                <>
+                                  <Check className="w-3 h-3" />
+                                  Copied!
+                                </>
+                              ) : (
+                                <>
+                                  <Copy className="w-3 h-3" />
+                                  Copy
+                                </>
+                              )}
+                            </Button>
+                          </TooltipTrigger>
+                          <TooltipContent>
+                            <p>Copy code snippet to clipboard</p>
+                          </TooltipContent>
+                        </Tooltip>
                         <ScrollArea className="h-[300px] w-full rounded-md border bg-muted/30 p-4">
                           <pre className="text-xs font-mono text-foreground whitespace-pre-wrap">
                             {doc.content}
@@ -947,10 +1006,17 @@ const getRecommendation = (needs: ProjectNeed[]) => {
                         <p className="text-xs text-muted-foreground">View the complete repository on GitHub</p>
                       </div>
                     </div>
-                    <Button variant="outline" size="sm" className="gap-2">
-                      <ExternalLink className="w-4 h-4" />
-                      View Repo
-                    </Button>
+                    <Tooltip>
+                      <TooltipTrigger asChild>
+                        <Button variant="outline" size="sm" className="gap-2">
+                          <ExternalLink className="w-4 h-4" />
+                          View Repo
+                        </Button>
+                      </TooltipTrigger>
+                      <TooltipContent>
+                        <p>Open GitHub repository in new tab</p>
+                      </TooltipContent>
+                    </Tooltip>
                   </div>
                 </CardContent>
               </Card>
@@ -959,5 +1025,6 @@ const getRecommendation = (needs: ProjectNeed[]) => {
         </Tabs>
       </CardContent>
     </Card>
+    </TooltipProvider>
   );
 };
